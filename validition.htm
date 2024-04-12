@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Form Validation</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<style>
+    body {
+        padding-top: 3rem;
+    }
+    .error-text {
+        color: red;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h3>Form Validation</h3>
+    <form id="validationForm" class="col s12" >
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="name" type="text" class="validate">
+                <label for="name">Name</label>
+                <span class="error-text" id="nameError"></span>
+            </div>
+            <div class="input-field col s12">
+                <input id="email" type="email" class="validate">
+                <label for="email">Email</label>
+                <span class="error-text" id="emailError"></span>
+            </div>
+            <div class="input-field col s12">
+                <input id="password" type="password" class="validate">
+                <label for="password">Password</label>
+                <span class="error-text" id="passwordError"></span>
+            </div>
+        </div>
+        <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+            <i class="material-icons right">send</i>
+        </button>
+    </form>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.tooltipped');
+        var instances = M.Tooltip.init(elems);
+    });
+
+    const form = document.getElementById('validationForm');
+
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        validateForm();
+    });
+
+    function validateForm() {
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const nameError = document.getElementById('nameError');
+        const emailError = document.getElementById('emailError');
+        const passwordError = document.getElementById('passwordError');
+
+        nameError.textContent = '';
+        emailError.textContent = '';
+        passwordError.textContent = '';
+
+        if (name.trim() === '') {
+            nameError.textContent = 'Name is required';
+        }
+
+        if (email.trim() === '') {
+            emailError.textContent = 'Email is required';
+        }
+
+        if (password.trim() === '') {
+            passwordError.textContent = 'Password is required';
+        } else if (password.length < 8) {
+            passwordError.textContent = 'Password must be at least 8 characters';
+        }
+    }
+</script>
+</body>
+</html>
